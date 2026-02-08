@@ -1,0 +1,18 @@
+font-family = "Google Sans Code"
+font-size = 13
+
+theme = "GitHub Dark"
+foreground = #f0f0f0
+
+cursor-style = bar
+cursor-style-blink = false
+
+background-opacity = 0.85
+background-blur-radius = 20
+
+copy-on-select = true
+clipboard-read = allow
+clipboard-write = allow
+
+desktop-notifications = true
+
