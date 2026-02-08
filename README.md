@@ -15,7 +15,7 @@ Each config file is placed at its expected path via symlinks.
 ### 1. Clone the repository
 
 ```bash
-git clone git@github.com:arlo-engineer/dotfiles.git ~/dev/personal/dotfiles
+git clone git@github.com:arlo-engineer/dotfiles.git ~/dotfiles
 ```
 
 ### 2. Create symlinks
