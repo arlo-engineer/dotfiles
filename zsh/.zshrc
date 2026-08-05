@@ -1,6 +1,6 @@
 # Gitタブ補完の設定
 fpath=(
-  ${HOME}/.zsh/completions
+  ${HOME}/.zsh/completion
   ${fpath}
 )
 autoload -Uz compinit
@@ -38,6 +38,21 @@ load-nvmrc() {
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
 
+# ~/dev/personal 配下では gh を個人アカウント(arlo-engineer)で実行する。
+# GH_TOKEN を常時 export せず gh 実行時のみ注入することで、他プロセスへのトークン漏れと
+# cd ごとの keyring アクセスを避ける
+_gh_is_personal_dir() {
+  # :A でシンボリックリンクを解決する。この .zshrc 自体が ~/dev/personal/dotfiles への
+  # リンクのため、$PWD の論理パスと実体が食い違うケースが実際に起こる
+  local personal_root="${HOME:A}/dev/personal"
+  [[ "${PWD:A}" == "$personal_root" || "${PWD:A}" == "$personal_root"/* ]]
+}
 
-alias cc="claude"
-export PATH="$HOME/.local/bin:$PATH"
+gh() {
+  if _gh_is_personal_dir; then
+    GH_TOKEN="$(command gh auth token --user arlo-engineer)" command gh "$@"
+  else
+    command gh "$@"
+  fi
+}
+
